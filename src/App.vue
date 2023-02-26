@@ -4,15 +4,15 @@
     <button class="start-btn" :class="{ inPlay }" @click="toggleInPlay">
       {{ inPlay ? "Pause" : "Start" }}
     </button>
-    <button class="start-btn" @click="restartGame">Restart</button>
+    <button class="start-btn" @click="resetGame">Reset</button>
   </div>
   <div class="grid-container">
     <Grid :inPlay="inPlay" @endGame="() => (gameOver = true)" />
     <div v-if="gameOver" class="game-over">
       <h3 class="game-over-text">
-        Oh no! The grid is too big! Hit restart to play again.
+        Oh no! The grid is too big! Hit reset to play again.
       </h3>
-      <button class="restart-btn" @click="restartGame">RESTART!</button>
+      <button class="reset-btn" @click="resetGame">RESET!</button>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ const toggleInPlay = () => {
 
 const gameOver = ref(false);
 
-const restartGame = () => {
+const resetGame = () => {
   window.location.reload();
 };
 </script>
@@ -38,17 +38,18 @@ const restartGame = () => {
   border-bottom: grey 1px solid;
   display: flex;
   justify-content: center;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .start-btn {
-  width: 10%;
+  width: 10rem;
   margin: 10px;
   padding: 1rem 1.5rem;
   background-color: black;
@@ -58,7 +59,7 @@ const restartGame = () => {
 }
 
 .start-btn:hover,
-.restart-btn:hover {
+.reset-btn:hover {
   cursor: pointer;
   color: black;
   background-color: azure;
@@ -72,7 +73,7 @@ const restartGame = () => {
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 
@@ -92,7 +93,7 @@ const restartGame = () => {
   margin-bottom: 2rem;
 }
 
-.restart-btn {
+.reset-btn {
   width: 30%;
   margin: 10px;
   padding: 1rem 1.5rem;

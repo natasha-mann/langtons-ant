@@ -10,6 +10,8 @@ The task this week is to create a simulation of Langton's Ant. Langton's Ant is 
 
 - The ant is set to move every 250ms -> this can be amended by changing the value given to `setTimeout` on line 66 of Grid.vue.
 
+- If the ant tries to move outside of the current grid, the grid expands by one cell on each side (so growing by 2 rows and 2 columns)
+
 - There are buttons which allow you to manually start and pause the simulation at any point. If the simulation is left to run, it will automatically end once the grid gets to a size of 16x16.
 
 ### To run the simulation

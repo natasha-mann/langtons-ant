@@ -8,8 +8,17 @@
           :data-coordinates="`${row},${col}`"
           :key="colIndex"
           :class="[
-            antDirectionClass,
-            { antSquare: antPosition.row === row && antPosition.col === col },
+            {
+              northAnt: isCurrentSquare(row, col) && antDirection === 0,
+            },
+            {
+              southAnt: isCurrentSquare(row, col) && antDirection === 180,
+            },
+            {
+              westAnt: isCurrentSquare(row, col) && antDirection === 270,
+            },
+
+            { antSquare: isCurrentSquare(row, col) },
             {
               blackSquare: blackSquares.some(
                 (obj) => obj.row === row && obj.col === col
@@ -40,18 +49,8 @@ const antPosition = ref({ row: 2, col: 2 });
 const antDirection = ref(90);
 const blackSquares = ref([]);
 
-const antDirectionClass = computed(() => {
-  switch (antDirection.value) {
-    case 0:
-      return "northAnt";
-    case 90:
-      return "eastAnt";
-    case 180:
-      return "southAnt";
-    case 270:
-      return "westAnt";
-  }
-});
+const isCurrentSquare = (row, col) =>
+  antPosition.value.row === row && antPosition.value.col === col;
 
 const rowArray = computed(() => {
   return Array.from(Array(rows.value).keys());
@@ -151,8 +150,10 @@ const moveAnt = () => {
 }
 
 .square {
-  width: 70px;
-  height: 70px;
+  width: 45px;
+  height: 45px;
+  min-width: 30px;
+  min-height: 30px;
   margin: 0;
   padding: 0;
   border: 1px solid black;
