@@ -32,12 +32,12 @@
 <script setup>
 import { computed, onUpdated, ref } from "vue";
 
-const emit = defineEmits(["stopGame"]);
+const emit = defineEmits(["endGame"]);
 
 const props = defineProps({ inPlay: Boolean });
 
-const rows = ref(8);
-const columns = ref(7);
+const rows = ref(6);
+const columns = ref(5);
 const antPosition = ref({ row: 2, col: 2 });
 const antDirection = ref(90);
 const blackSquares = ref([]);
@@ -65,16 +65,6 @@ const colArray = computed(() => {
 
 const moveAnt = () => {
   if (props.inPlay) {
-    if (
-      antPosition.value.col < 0 ||
-      antPosition.value.col > columns.value ||
-      antPosition.value.row < 0 ||
-      antPosition.value.row > rows.value
-    ) {
-      emit("stopGame");
-      return;
-    }
-
     const currentSquare = document.querySelector(
       `[data-coordinates="${antPosition.value.row},${antPosition.value.col}"]`
     );
@@ -106,17 +96,45 @@ const moveAnt = () => {
         : (antDirection.value += 90);
     }
 
+    const extendGrid = () => {
+      if (rows.value >= 16 || columns.value >= 15) {
+        emit("endGame");
+        return;
+      }
+      rows.value += 2;
+      columns.value += 2;
+      antPosition.value.row += 1;
+      antPosition.value.col += 1;
+      const newBlackSquares = blackSquares.value.map(({ row, col }) => ({
+        row: row + 1,
+        col: col + 1,
+      }));
+      blackSquares.value = newBlackSquares;
+    };
+
     switch (antDirection.value) {
       case 0:
+        if (antPosition.value.row === 0) {
+          extendGrid();
+        }
         antPosition.value.row -= 1;
         break;
       case 90:
+        if (antPosition.value.col === columns.value - 1) {
+          extendGrid();
+        }
         antPosition.value.col += 1;
         break;
       case 180:
+        if (antPosition.value.row === rows.value - 1) {
+          extendGrid();
+        }
         antPosition.value.row += 1;
         break;
       case 270:
+        if (antPosition.value.col === 0) {
+          extendGrid();
+        }
         antPosition.value.col -= 1;
         break;
     }
@@ -125,7 +143,7 @@ const moveAnt = () => {
 
 onUpdated(() => {
   if (props.inPlay) {
-    setTimeout(moveAnt, 1000);
+    setTimeout(moveAnt, 200);
   }
 });
 </script>
