@@ -36,8 +36,8 @@ const emit = defineEmits(["stopGame"]);
 
 const props = defineProps({ inPlay: Boolean });
 
-const rows = ref(5);
-const columns = ref(5);
+const rows = ref(8);
+const columns = ref(7);
 const antPosition = ref({ row: 2, col: 2 });
 const antDirection = ref(90);
 const blackSquares = ref([]);
@@ -67,9 +67,9 @@ const moveAnt = () => {
   if (props.inPlay) {
     if (
       antPosition.value.col < 0 ||
-      antPosition.value.col > 4 ||
+      antPosition.value.col > columns.value ||
       antPosition.value.row < 0 ||
-      antPosition.value.row > 4
+      antPosition.value.row > rows.value
     ) {
       emit("stopGame");
       return;
@@ -125,7 +125,7 @@ const moveAnt = () => {
 
 onUpdated(() => {
   if (props.inPlay) {
-    setTimeout(moveAnt, 300);
+    setTimeout(moveAnt, 1000);
   }
 });
 </script>
