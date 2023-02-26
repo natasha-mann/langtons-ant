@@ -10,6 +10,8 @@ The task this week is to create a simulation of Langton's Ant. Langton's Ant is 
 
 2️⃣ Further points are awarded for expanding the grid by one cell in all directions if the ant attempts to move outside of the grid.
 
+![img](./src/assets/langant.gif)
+
 ### Compile and Hot-Reload for Development
 
 ```sh
