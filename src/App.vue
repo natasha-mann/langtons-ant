@@ -2,7 +2,7 @@
   <div class="heading"><h1>Langton's Ant</h1></div>
   <div class="btn-container">
     <button class="start-btn" :class="{ inPlay }" @click="toggleInPlay">
-      {{ inPlay ? "Stop" : "Start" }}
+      {{ inPlay ? "Pause" : "Start" }}
     </button>
     <button class="start-btn" @click="restartGame">Restart</button>
   </div>

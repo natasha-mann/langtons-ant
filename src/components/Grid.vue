@@ -63,12 +63,12 @@ const colArray = computed(() => {
 
 onUpdated(() => {
   if (props.inPlay) {
-    setTimeout(moveAnt, 200);
+    setTimeout(moveAnt, 250);
   }
 });
 
 const extendGrid = () => {
-  if (rows.value >= 16 || columns.value >= 15) {
+  if (rows.value >= 16 || columns.value >= 16) {
     emit("endGame");
     return;
   }
@@ -167,7 +167,7 @@ const moveAnt = () => {
 }
 
 .antSquare {
-  background-image: url("../assets/images/ant-black.svg");
+  background-image: url("../assets/images/ant.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
